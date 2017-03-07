@@ -11,8 +11,8 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     require_once("libraries/password_compatibility_library.php");
 }
 print"VERSION CHECK COMPLETE<br>";
-// include the configs / constants for the database connection
-(require_once("../secure/dbcreds.php")) or die("Unable to access database ERR:1");
+// include the" configs / constants for the database connection
+(require_once("dbcreds.php")) or die("Unable to access database ERR:1");
 print "CREDS INCLUDED<br>";
 // load the login class
 (require_once("classes/Login.php")) or die("404 ERROR");

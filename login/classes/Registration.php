@@ -109,6 +109,7 @@ class Registration
                             VALUES(?,?,?,?,?,?);");
                     $stmt->bind_param("sssiss", $user_name,$user_password_hash,$user_email,$team,$first_name,$last_name);
                     $query_new_user_insert = $stmt->execute();
+					$create_collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team;
 
                     // if user has been added successfully
                     if ($query_new_user_insert) {

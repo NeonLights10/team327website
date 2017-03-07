@@ -8,7 +8,7 @@
 <body>
 <?php
 	require '../../vendor/autoload.php';
-	(require_once("../secure/dbcreds.php")) or die("Unable to access database ERR:1");
+	(require_once("dbcreds.php")) or die("Unable to access database ERR:1");
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->teams;
 	$cursor = $collection->find(
 		[],

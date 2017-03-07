@@ -70,7 +70,7 @@ session_start();
 						<h4>Github</h4>
 					</div>
 					<div class="col-lg-3">
-						<a href="https://goo.gl/d1c7W2"><img class="img-circle" src="/images/google_drive.png" alt="Generic placeholder image" width="100" height="100"></a>
+						<a href="https://drive.google.com"><img class="img-circle" src="/images/google_drive.png" alt="Generic placeholder image" width="100" height="100"></a>
 						<h4>Google Drive</h4>
 					</div>
 					<div class="col-lg-3">

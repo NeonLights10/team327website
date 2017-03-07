@@ -16,8 +16,8 @@
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		// collect value of input field
-		$number = $_POST['team_number'];
-		$name = $_POST['team_name'];
+		$number = (int) $_POST['team_number'];
+		$name = (string) $_POST['team_name'];
 		if (empty($name)) {
 			echo "Name is empty" . "<br>";
 			if (empty($number)) {
