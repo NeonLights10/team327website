@@ -1,0 +1,323 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro');
+
+/* 
+ *
+ * Document Elements
+ *
+ */
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body { 
+    font-family: 'Open Sans', sans-serif;
+	background: #ffffff;
+    /*
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;*/
+	margin-bottom: 60px;
+}
+
+h1 {
+    color:#000000;
+    font-size:40px;
+}
+
+/* 
+ *
+ * Navbar
+ *
+ */
+
+/* Custom class for animations */
+.animated {
+    animation-duration: 2s !important;
+}
+
+ul.nav {
+	background-color: rgba(25,25,25,.8);
+	list-style-type: none;
+	width: 100%;
+	position: fixed;
+	z-index: 9999;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	display: flex;
+	justify-content: flex-end;
+	flex-grow: 1;
+	/*Adds a smooth transition from transparant to white*/
+    transition: background-color 0.5s ease !important;
+}
+
+ul.nav li.navbutton {
+	float: left;
+}
+
+/* Link colors */
+ul.nav a{
+	color: #1ab188;
+}
+
+ul.nav a:hover{
+	color: #1ab188;
+}
+
+/* Expandable Menu button */
+ul.nav li.navicon a {
+	padding-top: 25px;
+	padding-bottom: 10px;
+	/*padding-left: 25px;*/
+	/*padding-right: 25px;*/
+	display: none;
+	font-size: 2em;
+}
+
+ul.nav li.navicon a:hover{
+	color: #1ab188;
+}
+
+.logo {
+	margin-right: auto;
+}
+
+/* For mobile screens, remove all of the nav links and replace it with a expandable menu button. */
+@media screen and (max-width:680px) {
+	ul.nav li:not(:last-child) {
+		 display: none;
+	}
+	ul.nav li.navicon a{
+		float: right;
+		display: flex;
+	}
+	ul.nav li.navicon {
+		float: left;
+		display: flex;
+	}
+}
+
+/* The actual responsive menu classes */
+@media screen and (max-width:680px) {
+	ul.nav.responsive{
+		position: relative; 
+		flex-direction: column;
+		display: flex;
+	}
+	ul.nav.responsive li.navicon a{
+		position: absoulte;
+		right: 0;
+		top: 0;
+		width: 100%;
+	}
+	ul.nav.responsive li {
+		float: none;
+		display: inline-block;
+	}
+	ul.nav.responsive li a{
+		display: block;
+		text-align: left;
+		padding-bottom: 25px;
+	}
+}
+
+.header_push {
+    height: 80px;
+}
+
+/* Old navbar code */
+/*.header {
+    z-index:42;
+    position:fixed;
+    background-color: rgba(25,25,25,.8);
+    margin:0;
+    padding:0;
+    /*Adds a smooth transition from transparant to white
+    transition: background-color 0.5s ease !important;
+}*/
+
+/* 
+ *
+ * Footer 
+ *
+ */
+
+footer{
+	position:absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px !important;
+    padding: 20px 0px 5px 10px;
+    background-color:rgba(255,255,255,1);
+}
+
+.footer-correction{
+	margin-bottom: 70px !important;
+}
+
+/* 
+ *
+ * Main Content
+ *
+ */
+.mainbackground {
+	background-image: url('/images/HomeBG171.jpg') !important;
+  	background-repeat: no-repeat;
+    background-size: cover;
+	background-attachment: fixed;
+	background-position: center;
+	/*-webkit-filter: blur(3px);
+  	-moz-filter: blur(3px);
+  	-o-filter: blur(3px);
+  	-ms-filter: blur(3px);
+  	filter: blur(3px);*/
+}
+
+/* Adds spacing between header and first box on index.php */
+.main-top-padding{
+    padding: 175px 0px 225px;
+}
+
+/* Floating box in center */
+.main-center-float{
+    text-align:center;
+    background-color: rgba(245, 245, 246, 0.901961);
+    padding: 30px 15px;
+    border: 5px solid #ffffff;
+    margin: 0px 0px 10px 0px;
+}
+
+.signup-button{
+    font-size: 20px;
+    margin:5px;
+}
+
+.no-border-button{
+    border-radius: 0px !important;
+}
+
+/*.content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.content-2 {
+	z-index: 40;
+}
+
+.content-bg {
+    color: white;
+    background-color: rgba(0, 66, 0, 0.7);
+    background-size: contain;
+}*/
+
+/*Section classes and individual properties for each panel*/
+.section {
+    padding: 15px 0px;
+    background-color:rgba(255,255,255,.9);
+    text-align: center;
+}
+
+.section.mini-panel1{
+    padding: 25px 0px;
+    background-color:rgba(127, 174, 104,1);
+    color:#ffffff;
+}
+
+.iconlinks {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+	justify-content: center;
+	padding: 0px 5px;
+}
+
+.section.panel1{
+    color: blue;
+    height:650px;
+    background-image:url('/images/IMG_0384.JPG');
+    background-repeat: no-repeat;
+    background-size:  cover;
+	background-position: center;
+    -webkit-box-shadow: -1px -6px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: -1px -6px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: -1px -6px 10px 0px rgba(0,0,0,0.5);
+}
+
+.section.panel2{
+    background-color:rgba(255,255,255,1);
+    padding: 30px 0px 90px 0px;
+    -webkit-box-shadow: inset -1px 6px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: inset -1px 6px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: inset -1px 6px 10px 0px rgba(0,0,0,0.5);
+}
+
+.section.panel3{
+    height:650px;
+    background-image:url('/media/nightcity.jpg');
+    background-repeat: no-repeat;
+    background-size:  cover;
+    /*-webkit-box-shadow: inset -1px -6px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: inset -1px -6px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: inset -1px -6px 10px 0px rgba(0,0,0,0.5);*/
+}
+
+/* Special Classes */
+
+.center{
+    text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+.re-center {
+	padding-left: 56px;
+}
+
+.clearfix{
+    overflow: auto;
+}
+
+.full-cover {
+    margin:0px;
+    padding:0px;
+}
+
+.no-center{
+    text-align:justify !important;
+}
+
+.img-circle {
+	transition: all .2s ease-in-out;
+}
+
+.img-circle:hover {
+	transform: scale(1.1);
+}
+
+.right {
+    position: absolute;
+    right: 10px;
+}
+
+/* Other stuff */
+.required {
+	color:red;
+	font-size:1.5em;
+}
+
+.error {
+	color:red;
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"]
+{
+  border:1px solid #f00;
+  box-shadow:0 0 4px 0 #f00;
+}
