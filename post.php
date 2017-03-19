@@ -10,9 +10,10 @@
 </head>
 
 <body>
+<h1>THIS PAGE IS DEPRECATED</h1>
 <div style="margin: 20px">
 	<h1 id="titleGet">Add User</h1>
-	<form name="user" action="poststream.php" onsubmit="return validateForm()" method="post">
+	<form name="user" action="#" onsubmit="return validateForm()" method="post">
 		<fieldset>
 		Team Number: 
 		<span class="required">*</span>

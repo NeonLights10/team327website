@@ -7,10 +7,11 @@
 </head>
 
 <body>
+<h1>THIS PAGE IS DEPRECATED</h1>
 <?php
-	require '../vendor/autoload.php';
-	(require_once("/secure/dbcreds.php")) or die("Unable to access database ERR:1");
-	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->dbname->users;
+	//require '../vendor/autoload.php';
+	//(require_once("/secure/dbcreds.php")) or die("Unable to access database ERR:1");
+	//$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->dbname->users;
 ?>
 <div style="margin: 20px">
 	<h1 id="titleGet">View Users</h1>

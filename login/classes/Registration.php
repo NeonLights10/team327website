@@ -1,5 +1,6 @@
 <?php
-
+	require '../../vendor/autoload.php';
+	(require_once("dbcreds.php")) or die("Unable to access database ERR:1");
 /**
  * Class registration
  * handles the user registration
@@ -70,58 +71,102 @@ class Registration
             && !empty($_POST['user_password_new'])
             && !empty($_POST['user_password_repeat'])
             && ($_POST['user_password_new'] === $_POST['user_password_repeat'])
+		  	&& (int)$_POST['team']<100000
         ) {
-            // create a database connection
-            $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+			$check_team_validity = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->teams;
+			if ($check_team_validity->findOne(['team_number' => (int)$_POST['team']]) == null) {
+				$this->errors[] = "Team is not in the database! You cannot make an account at this time.";
+			}
+			else {
+				// create a database connection
+				$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-            // change character set to utf8 and check it
-            if (!$this->db_connection->set_charset("utf8")) {
-                $this->errors[] = $this->db_connection->error;
-            }
+				// change character set to utf8 and check it
+				if (!$this->db_connection->set_charset("utf8")) {
+					$this->errors[] = $this->db_connection->error;
+				}
 
-            // if no connection errors (= working database connection)
-            if (!$this->db_connection->connect_errno) {
+				// if no connection errors (= working database connection)
+				if (!$this->db_connection->connect_errno) {
 
-                // escaping, additionally removing everything that could be (html/javascript-) code
-                $user_name = $this->db_connection->real_escape_string(strip_tags($_POST['user_name'], ENT_QUOTES));
-                $user_email = $this->db_connection->real_escape_string(strip_tags($_POST['user_email'], ENT_QUOTES));
-                
-                $user_password = $_POST['user_password_new'];
-                $first_name = $this->db_connection->real_escape_string(strip_tags($_POST['first_name'], ENT_QUOTES));
-                $last_name = $this->db_connection->real_escape_string(strip_tags($_POST['last_name'], ENT_QUOTES));
-                $team = $this->db_connection->real_escape_string(strip_tags($_POST['team'], ENT_QUOTES));
-                $member_type='Member';
-                
-                // crypt the user's password with PHP 5.5's password_hash() function, results in a 60 character
-                // hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using
-                // PHP 5.3/5.4, by the password hashing compatibility library
-                $user_password_hash = password_hash($user_password, PASSWORD_DEFAULT);
+					// escaping, additionally removing everything that could be (html/javascript-) code
+					$user_name = $this->db_connection->real_escape_string(strip_tags($_POST['user_name'], ENT_QUOTES));
+					$user_email = $this->db_connection->real_escape_string(strip_tags($_POST['user_email'], ENT_QUOTES));
 
-                // check if user or email address already exists
-                $sql = "SELECT * FROM users WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_email . "';";
-                $query_check_user_name = $this->db_connection->query($sql);
+					$user_password = $_POST['user_password_new'];
+					$first_name = $this->db_connection->real_escape_string(strip_tags($_POST['first_name'], ENT_QUOTES));
+					$last_name = $this->db_connection->real_escape_string(strip_tags($_POST['last_name'], ENT_QUOTES));
+					$team = $this->db_connection->real_escape_string(strip_tags($_POST['team'], ENT_QUOTES));
+					$member_type='Member';
 
-                if ($query_check_user_name->num_rows == 1) {
-                    $this->errors[] = "Sorry, that username / email address is already taken.";
-                } else {
-                    // write new user's data into database
-                    $stmt=$this->db_connection->prepare("INSERT INTO users (user_name, user_password_hash, user_email, user_team, user_first_name, user_last_name)
-                            VALUES(?,?,?,?,?,?);");
-                    $stmt->bind_param("sssiss", $user_name,$user_password_hash,$user_email,$team,$first_name,$last_name);
-                    $query_new_user_insert = $stmt->execute();
-					$create_collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team;
+					// crypt the user's password with PHP 5.5's password_hash() function, results in a 60 character
+					// hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using
+					// PHP 5.3/5.4, by the password hashing compatibility library
+					$user_password_hash = password_hash($user_password, PASSWORD_DEFAULT);
 
-                    // if user has been added successfully
-                    if ($query_new_user_insert) {
-                        $this->messages[] = "Your account has been created successfully. You can now log in.";
-                        $this->successful=true;
-                    } else {
-                        $this->errors[] = "Sorry, your registration failed. Please go back and try again.";
-                    }
-                }
-            } else {
-                $this->errors[] = "Unable to access database ERR:2";
-            }
+					// check if user or email address already exists
+					$sql = "SELECT * FROM users WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_email . "';";
+					$query_check_user_name = $this->db_connection->query($sql);
+
+					if ($query_check_user_name->num_rows == 1) {
+						$this->errors[] = "Sorry, that username / email address is already taken.";
+					} else {
+						// write new user's data into database
+						$stmt=$this->db_connection->prepare("INSERT INTO users (user_name, user_password_hash, user_email, user_team, user_first_name, user_last_name)
+								VALUES(?,?,?,?,?,?);");
+						$stmt->bind_param("sssiss", $user_name,$user_password_hash,$user_email,$team,$first_name,$last_name);
+						$query_new_user_insert = $stmt->execute();
+
+
+						// if user has been added successfully
+						if ($query_new_user_insert) {
+							$this->messages[] = "Your account has been created successfully. You can now log in.";
+							$this->successful=true;
+							//Create test connection to check if team database exists
+							$create_collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team;
+							//Check for documents in collection, if there are none then create collection
+							if($create_collection->findOne() == null) {
+								//Create connection to the team collection to prepare for copying database
+								$copy_collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->teams;
+								//Get number of teams
+								$cursor = $copy_collection->count();
+								echo $cursor;
+								/* Get each document from the teams collection using UUID index
+								 * Retrive document values and prepare them for insertion
+								 * Insert new document into the new team collection */
+								for($i = 0; $i < $cursor; $i++) {
+									$current = $copy_collection->findOne(['uuid' => ($i + 1)]);
+									$uuid = $current['uuid'];
+									$team_name = $current['team_name'];
+									$team_number = $current['team_number'];
+									$team_school = $current['team_school'];
+									$team_city = $current['team_city'];
+									$team_state = $current['team_state'];
+									$result = $create_collection->insertOne([
+										'uuid' => $uuid,
+										'team_number' => $team_number,
+										'team_name' => $team_name,
+										'team_school' => $team_school,
+										'team_city' => $team_city,
+										'team_state' => $team_state,
+									]);
+									// $users->insert($userinfo, array('safe' => true)); Use if you want synchronous addition
+								}
+								printf("Inserted %d document(s)\n", $result->getInsertedCount());
+									echo "<br>";
+
+									$upsertedDocument = $create_collection->findOne([
+										'_id' => $result->getInsertedId(),
+									]);
+							}
+						} else {
+							$this->errors[] = "Sorry, your registration failed. Please go back and try again.";
+						}
+					}
+				} else {
+					$this->errors[] = "Unable to access database ERR:2";
+				}
+			}
         } else {
             $this->errors[] = "Please reload the page and try again ERR:3";
         }

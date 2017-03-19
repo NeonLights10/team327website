@@ -43,7 +43,7 @@ if($registration->successful) {
     //    header("Location: ../" . htmlspecialchars($_GET['ref']));
     //    exit;
     //}
-    header("Location: /index.php");
+    header("Location: /login/index.php");
 	//echo "<script>window.location='/'</script>";
     exit();
 }

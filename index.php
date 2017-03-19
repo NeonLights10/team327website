@@ -1,11 +1,13 @@
 <?php
 session_start();
+require_once("session.php");
 ?>
+
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="user-scalable=0;"/>
+<meta name="viewport" content="user-scalable=0 initial-scale=0.75"/>
 <title>FTC 327 | Caveman with Cloud</title>
 
 <!-- Pull Boostrap and JQuery dependencies -->
@@ -22,17 +24,12 @@ session_start();
 </head>
 
 <body class="mainbackground">
-	<!--<div class="header col-sm-12">
-		<div class="row">
-			<div class="col-sm-offset-1 col-sm-1" style="margin-right: 20px">-->
-				
-			<!--</div>-->
-			<!--<div class="col-sm-8">-->
+	<!--Navbar-->
 	<ul class="nav navbar-nav" id="respnav">
 		<span class="logo"><a href="/" style="color:black;"><img src="/images/logo.png" alt="Delta Drive" style="height:70px"/></a></span>
 		<li class="navbutton"><a href="/index.php"><h4>Home</h4></a></li>
-		<li class="navbutton"><a href="/about.php"><h4>About Us</h4></a></li>
-		<li class="navbutton"><a href="/photos.php"><h4>Photos</h4></a></li>
+		<li class="navbutton"><a href="/about.php"><h4>Roster</h4></a></li>
+		<li class="navbutton"><a href="/scouting/index.php"><h4>Scouting</h4></a></li>
 		<li class="navbutton"><a href="/contact.php"><h4>Contact Us</h4></a></li>
 		<?php 
 			if(isset($_SESSION['user_name'])) {
@@ -47,6 +44,7 @@ session_start();
 		</li>
 	</ul>
 	
+	<!--Jumbotron-->
 	<div style="z-index: -1">
 		<div class="main-top-padding">
 			<div class="container">
@@ -55,13 +53,14 @@ session_start();
 						<div class="main-center-float">
 							<h2 class="fadeInUp animated">Welcome to FTC Team 327!</h2>
 							<p>If you're a scouter, click the button below to open the scouting app.</p>
-							<button type="button" class="btn btn-info signup-button no-border-button" onclick='window.location="/signin.php?ref=seek"'>START SCOUTING</button>
+							<a href="/scouting/index.php"><button type="button" class="btn btn-info signup-button no-border-button">START SCOUTING</button></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!--Circle Image Links-->
 	<div class="container-fluid">
 		<div class="row section mini-panel1">
 				<div class="iconlinks">
@@ -80,6 +79,7 @@ session_start();
 				</div>
 		</div>
 	</div>	
+	<!--Image-->
 	<div class="container-fluid">
 			<div class="center row section panel1">
 				<!--<div class="col-md-6 col-md-offset-3">
@@ -87,6 +87,7 @@ session_start();
 				</div>-->
 			</div>
 		</div>
+	<!--Text Panel-->
 	<div class="container-fluid">
 		<div class="row section panel2">
 			<div class="col-md-6 col-md-offset-3" style="padding-bottom:10px;">
@@ -98,34 +99,58 @@ session_start();
 			<h4>
 			Team 327 was created in 2005, the inaugural year of  the FTC program. The team name and the majority of our team members change yearly as a result of the two-year timeframe of student attendance at GSSM. We have an experienced team of students this year; 10 of our team members have previously participated in FTC or FRC programs. The majority of our team members are a part of our team as a result of having chosen to take the robotics class at our school. Some students also attend team meetings as an extracurricular activity, but all team members participate and are viewed equally. The robotics class is graded based on our dedication and work ethic, follow-through on scheduled milestones for robot development, collaboration with the rest of the team, and the end of the semester performance of the robot.
 			</h4>
-			<h4>Together with team 772, our GSSM robotics teams have qualified for the World Championships in 2009 as well as the inaugural Southern Super-Regional in the 2014-2015 FTC season. Awards our team have earned in the past include the [award] and the [award].
+			<h4>Together with team 772, our GSSM robotics teams have qualified for the World Championships in 2009 as well as the inaugural Southern Super-Regional in the 2014-2015 FTC season. Awards our team have earned in the past include the 2015-2016 South Carolina Regional PTC Design Award and Winning Alliance 2016-2017 at the South Carolina Regionals.
 			</h4>
 			<br>
+			<!--Sponsor Panel-->
 			<h2 class="center">
 				Our Sponsors
 			</h2>
 			<div class="container-fluid">
 				<div class="row section mini-panel1" style="background-color:white !important;">
-						<div class="iconlinks">
-							<div class="col-lg-3">
-								<img class="img-logo" src="images/ftc.jpg" width="100%">
-							</div>
-							<div class="col-lg-3">
-								<img class="img-logo" src="images/scgssm.png" width="100%" style="text-align: center; object-fit:contain; margin-top: 20px;">
-							</div>
-							<div class="col-lg-3">
-								<img class="img-logo" src="images/2016_challenge.jpg" width="100%">
-							</div>
+					<div class="iconlinks">
+						<div class="col-lg-3">
+							<img class="img-logo" src="images/ftc.jpg" width=200px;>
 						</div>
+						<div class="col-lg-3">
+							<img class="img-logo" src="images/2016_challenge.jpg" width=200px;>
+						</div>
+					</div>
+					<div class="iconlinks">
+						<div class="col-lg-3">
+							<img class="img-logo" src="images/scgssm.png" width=400px; style="margin: 40px 0px;">
+						</div>
+					</div>
+					<div class="iconlinks">
+						<div class="col-lg-3">
+							<img class="img-logo" src="images/gssm_foundation.png" width=400px; style="margin-bottom: 40px;">
+						</div>
+					</div>
+					<div class="iconlinks">
+						<div class="col-lg-3">
+							<img class="img-logo" src="images/clemson.png" width=200px; style="margin-top:40px;">
+						</div>
+						<div class="col-lg-3">
+							<img class="img-logo" src="images/lowes.png" width=200px; style="margin-top:10px;">
+						</div>
+					</div>
+					<div class="iconlinks">
+						<div class="col-lg-3">
+							<img class="img-logo" src="images/1501.jpg" width=200px; style="margin-top:40px;">
+						</div>
+						<div class="col-lg-3">
+							<img class="img-logo" width=200px; style="margin-top:10px;">
+						</div>
+					</div>
 				</div>
 			</div>	
 			</div>
 		</div>
 	</div>	
-
+	<!--Footer-->
    	<footer class="footer">
 		<span class="text-muted">FTC Team 327 &COPY;2017 | SCGSSM</span>
-    	<span class="text-muted right">Isaiah Ho and Brennan Cain</span>
+    	<span class="text-muted right">Isaiah Ho</span>
     </footer>
     
     <script type="application/javascript" src="scripts/responsivenav.js"></script>
