@@ -124,6 +124,7 @@
 	<div class="header_push">	
 	</div>
 	<div style="display:flex;">	
+	<div><a href="#" onclick="window.history.back();"><img src="../images/arrow-left.png" style="padding:22px 0px 0px 10px;"></img></a></div>
 	<h2 style="padding-left:15px; font-weight:bold;">
 	<?php
 		echo $cursor['team_number'] . " | " . $cursor['team_name'];
@@ -134,19 +135,19 @@
 	<div class="container-fluid">	
 		<table class="teamtable">
 			<tr>
-				<th class="teamlabel">Team School</th>
+				<th class="teamlabel">School</th>
 				<td><?php echo $cursor['team_school']?></td>
 			</tr>
 			<tr>
-				<th class="teamlabel">Team City</th>
+				<th class="teamlabel">City</th>
 				<td><?php echo $cursor['team_city']?></td>
 			</tr>
 			<tr>
-				<th class="teamlabel">Team State</th>
+				<th class="teamlabel">State</th>
 				<td><?php echo $cursor['team_state']?></td>
 			</tr>
 			<tr>
-				<th class="teamlabel">Team Captain</th>
+				<th class="teamlabel">Captain</th>
 				<td><?php echo $cursor['team_captain']?></td>
 			</tr>
 		</table>

@@ -42,7 +42,7 @@
 	<hr>
 	<div class="container-fluid">	
 	<!-- TODO: Change method from POST to GET -->
-	<form action="results.php" name="team_edit" method="post" class="teamedit">
+	<form action="results.php" name="team_edit" method="get" class="teamedit">
 		<fieldset>
 			<table>
 				<tr>
@@ -107,33 +107,33 @@
 			<hr>
 			<div class="row">
 				<div class="col-lg-3">
-				<!--TODO: Change this into a table-->
+				<!--TODO: Change this into a table/flexbox (Cry tears of sadness at what this is)-->
 				<h3 class="teamheading">TeleOp Capabilities</h3>
 				<span class="teamedit-text" style="padding-right: 196px;">Cap Ball</span>
-				<input type="checkbox" class="teamsearch-checkbox" name="abilities[]" value="cap_ability_teleop"/>
+				<input type="checkbox" class="teamsearch-checkbox" name="cap_ability_teleop" value="true"/>
 				<br>
 				<span class="teamedit-text" style="padding-right: 37px;">Low Goal Projectile Scoring</span>
-				<input type="checkbox" class="teamsearch-checkbox" name="abilities[]" value="low_projectile_ability_teleop"/>
+				<input type="checkbox" class="teamsearch-checkbox" name="low_projectile_ability_teleop" value="true"/>
 				<br>
 				<span class="teamedit-text" style="padding-right: 32.5px;">High Goal Projectile Scoring</span>
-				<input type="checkbox" class="teamsearch-checkbox" name="abilities[]" value="high_projectile_ability_teleop"/>
+				<input type="checkbox" class="teamsearch-checkbox" name="high_projectile_ability_teleop" value="true"/>
 				<br>
 				<span class="teamedit-text" style="padding-right: 135px;">Beacon Scoring</span>
-				<input type="checkbox" class="teamsearch-checkbox" name="abilities[]" value="beacon_ability_teleop"/>
+				<input type="checkbox" class="teamsearch-checkbox" name="beacon_ability_teleop" value="true"/>
 				</div>
 				<div class="col-lg-3">
 					<h3 class="teamheading">Autonomous Capabilities</h3>
 					<span class="teamedit-text" style="padding-right: 140px;">Knock Cap Ball</span>
-					<input type="checkbox" class="teamsearch-checkbox" name="abilities[]" value="cap_ability_auto"/>
+					<input type="checkbox" class="teamsearch-checkbox" name="cap_ability_auto" value="true"/>
 					<br>
 					<span class="teamedit-text" style="padding-right: 36px;">Low Goal Projectile Scoring</span>
-					<input type="checkbox" class="teamsearch-checkbox" name="abilities[]" value="low_projectile_ability_auto"/>
+					<input type="checkbox" class="teamsearch-checkbox" name="low_projectile_ability_auto" value="true"/>
 					<br>
 					<span class="teamedit-text" style="padding-right: 31.5px;">High Goal Projectile Scoring</span>
-					<input type="checkbox" class="teamsearch-checkbox" name="abilities[]" value="high_projectile_ability_auto"/>
+					<input type="checkbox" class="teamsearch-checkbox" name="high_projectile_ability_auto" value="true"/>
 					<br>
 					<span class="teamedit-text" style="padding-right: 134px;">Beacon Scoring</span>
-					<input type="checkbox" class="teamsearch-checkbox" name="abilities[]" value="beacon_ability_auto"/>
+					<input type="checkbox" class="teamsearch-checkbox" name="beacon_ability_auto" value="true"/>
 				</div>
 			</div>
 		<hr>

@@ -25,9 +25,9 @@ require_once("session.php");
 </head>
 </head>
 
-<body>
-	<div class="scouting-background">
-	</div>
+<body class="scouting-buttons">
+	<!--<div class="scouting-background">
+	</div>-->
 		<ul class="nav navbar-nav" id="respnav">
 			<span class="logo"><a href="/" style="color:black;"><img src="/images/logo.png" alt="Delta Drive" style="height:70px"/></a></span>
 			<li class="navbutton"><a href="/scouting/index.php"><h4>Scouting</h4></a></li>
@@ -46,24 +46,27 @@ require_once("session.php");
 		</ul>
 		<div class="header_push"></div>
 		<div class="header_push"></div>
-		<div class="center">		
-			<div class="scouting-buttons">
-				<div class="container-fluid">
-					<h3>Welcome to <br>Cloud Scout v0.8β</h3>
-					<div class="col-xs-6">
-						<div class="section panel3">
-							<a href="/scouting/search.php"><button type="button" class="btn btn-info scouting-button no-border-button" id="scout1">Search</button></a><br>
+		<div class="row center">	
+			<div class="col-xs-12 col-sm-6">
+				<!--<div class="container-fluid">-->
+					<h2>Welcome to ScoutCloud v0.8β</h2>
+						<!--<div class="row section panel3">-->
+						<div class="container-fluid center">
+							<a href="/scouting/search.php" class="btn btn-info scouting-button no-border-button" id="scout1">Search</a><br>
+						</div>
 							<!--<a href="/scouting/add.php"><button type="button" class="btn btn-success scouting-button no-border-button" id="scout2">Add</button></a><br>-->
-							<a href="/scouting/edit.php"><button type="button" class="btn btn-danger scouting-button no-border-button" id="scout3">Edit</button></a><br>
-							<a href="/scouting/teams.php"><button type="button" class="btn btn-warning scouting-button no-border-button" id="scout4">Teams</button></a>
-						</div>	
-					</div>
-				</div>
+						<div class="container-fluid center">
+							<a href="/scouting/edit.php" class="btn btn-danger scouting-button no-border-button" id="scout3">Edit</a><br>
+						</div>
+						<div class="container-fluid center">
+							<a href="/scouting/teams.php"class="btn btn-warning scouting-button no-border-button" id="scout4">Teams</a>
+						</div>
+				
 			</div>
 		</div>
 		<footer class="footer" style="background-color:rgba(0,0,0,0) !important;">
-			<span class="text-white">FTC Team 327 &COPY;2017 | SCGSSM</span>
-			<span class="text-white right">Isaiah Ho</span>
+			<span class="text-muted">FTC Team 327 &COPY;2017 | SCGSSM</span>
+			<span class="text-muted right">Isaiah Ho</span>
 		</footer>
 
 		<script type="application/javascript" src="../scripts/responsivenav.js"></script>

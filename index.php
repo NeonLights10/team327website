@@ -51,7 +51,7 @@ require_once("session.php");
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<div class="main-center-float">
-							<h2 class="fadeInUp animated">Welcome to FTC Team 327!</h2>
+							<h2 class="fadeInUp animated">Welcome to ScoutCloud!</h2>
 							<p>If you're a scouter, click the button below to open the scouting app.</p>
 							<a href="/scouting/index.php"><button type="button" class="btn btn-info signup-button no-border-button">START SCOUTING</button></a>
 						</div>
@@ -91,9 +91,12 @@ require_once("session.php");
 	<div class="container-fluid">
 		<div class="row section panel2">
 			<div class="col-md-6 col-md-offset-3" style="padding-bottom:10px;">
-				<h2> Welcome to FTC Team 327's Landing Page.</h2>
+				<h2> Welcome to ScoutCloud/FTC Team 327</h2>
 			</div>
 			<div class="col-md-12 no-center">
+			<h3>About ScoutCloud</h3>
+			<h4>ScoutCloud is our attempt at making the scouting life in FTC easier. A lot of our team members found that scouting can be very hectic, having to scribble notes in a messy notebook and constantly looking up information. ScoutCloud attempts to consolidate the experience into an intuitive and easy to use system, with powerful search queries and the ability to view teams based on match performance, geographical information, or user input.</h4>
+			<h3>About the Team</h3>
 			<h4>We are Team 327, Caveman with Cloud. Our members currently attend the South Carolina Governor’s School for Science and Mathematics (GSSM). GSSM is a residential school that aims to bring academically motivated students from all over South Carolina together where they can specialize in STEM subjects in order to maximize their talents and better prepare for college. The school is purposefully designed to be more challenging than an average high school, with classes being taught in a college-style manner and schedule, and with high expectations and in-depth lesson plans. The students will attend GSSM during their junior and senior year of high school (having applied for admittance during their sophomore year).
 			</h4>
 			<h4>

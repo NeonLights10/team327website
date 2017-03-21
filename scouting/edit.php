@@ -24,9 +24,9 @@ require_once("session.php");
 <link rel='stylesheet' href='/style/animate.css'>
 </head>
 
-<body>
-	<div class="scouting-background2">
-	</div>
+<body class="scouting-buttons">
+	<!--<div class="scouting-background2">
+	</div>-->
 	<ul class="nav navbar-nav" id="respnav">
 					<span class="logo"><a href="/" style="color:black;"><img src="/images/logo.png" alt="Delta Drive" style="height:70px"/></a></span>
 					<li class="navbutton"><a href="/scouting/index.php"><h4>Scouting</h4></a></li>
@@ -62,22 +62,22 @@ require_once("session.php");
 		?>
 	</div>
 	<div class="header_push"></div>
-	<div class="center">		
-		<div class="editform">
+	<div>		
+		<div class="col-xs-12 col-sm-6">
 			<h2 style="text-align:center;">Edit a team in your Notebook</h2>
-			<div class="container-fluid center">
+			<div class="container-fluid">
 				<form action="teamedit.php?ref=edit" name="editteam" method="post" class="teamform">
 					<fieldset>
 						Team Number: 
 						<span class="required">*</span>
 						<br>
-						<input type="text" length="60" name="team_number" style="margin-right: 10px;" required="required" aria-required="true"
+						<input type="text" length="60" name="team_number" class="edit-input" style="margin-right: 10px;" required="required" aria-required="true"
 						pattern="^([0-9]{1,5})$" title="Team Number"/>
 						<span class="error" id="email_error"></span>
 						<br>
 						Team Name:
 						<br>
-						<input type="text" length="60" name="team_name" pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+[\'-]?){1,15}$" style="margin-bottom: 10px; margin-right: 10px" 
+						<input type="text" length="60" name="team_name" class="edit-input" pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+[\'-]?){1,15}$" style="margin-bottom: 10px; margin-right: 10px" 
 						title="Team Name (No special characters)"/>
 						<span class="error" id="name_error"></span>
 						<br>
@@ -89,8 +89,8 @@ require_once("session.php");
 		</div>
 	</div>
 	<footer class="footer" style="background-color:rgba(0,0,0,0) !important;">
-		<span class="text-white">FTC Team 327 &COPY;2017 | SCGSSM</span>
-		<span class="text-white right">Isaiah Ho</span>
+		<span class="text-muted">FTC Team 327 &COPY;2017 | SCGSSM</span>
+		<span class="text-muted right">Isaiah Ho</span>
 	</footer>
 
 	<script type="application/javascript" src="../scripts/responsivenav.js"></script>

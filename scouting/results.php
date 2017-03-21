@@ -14,23 +14,31 @@
 	$team_db = (string) $_SESSION['user_team'];
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team_db;
 
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		//echo "Post received";
 		// collect value of input field
-		if (isset($_POST['team_number'])) { $number = test_input($_POST['team_number']); }
-		if (isset($_POST['team_name'])) { $name = test_input((string) $_POST['team_name']); }
-		if (isset($_POST['team_school'])) { $school = test_input((string) $_POST['team_school']); }
-		if (isset($_POST['team_city'])) { $city = test_input((string) $_POST['team_city']); }
-		if (isset($_POST['team_state'])) { $state = test_input((string) $_POST['team_state']); }
-		if (isset($_POST['team_captain'])) { $captain = test_input((string) $_POST['team_captain']); }
-		$cap_ability_teleop = IsChecked('abilities','cap_ability_teleop');
-		$low_projectile_ability_teleop = IsChecked('abilities','low_projectile_ability_teleop');
-		$high_projectile_ability_teleop = IsChecked('abilities','high_projectile_ability_teleop');
-		$beacon_ability_teleop = IsChecked('abilities','beacon_ability_teleop');
-		$cap_ability_auto = IsChecked('abilities','cap_ability_auto');
-		$low_projectile_ability_auto = IsChecked('abilities','low_projectile_ability_auto');
-		$high_projectile_ability_auto = IsChecked('abilities','high_projectile_ability_auto');
-		$beacon_ability_auto = IsChecked('abilities','beacon_ability_auto');
+		if (isset($_GET['team_number'])) { $number = test_input($_GET['team_number']); }
+		if (isset($_GET['team_name'])) { $name = test_input((string) $_GET['team_name']); }
+		if (isset($_GET['team_school'])) { $school = test_input((string) $_GET['team_school']); }
+		if (isset($_GET['team_city'])) { $city = test_input((string) $_GET['team_city']); }
+		if (isset($_GET['team_state'])) { $state = test_input((string) $_GET['team_state']); }
+		if (isset($_GET['team_captain'])) { $captain = test_input((string) $_GET['team_captain']); }
+		if (isset($_GET['cap_ability_teleop']) && ($_GET['cap_ability_teleop'] == true)) { $cap_ability_teleop = true; }
+		else { $cap_ability_teleop = false; }
+		if (isset($_GET['low_projectile_ability_teleop']) && ($_GET['low_projectile_ability_teleop'] == true)) { $low_projectile_ability_teleop = true; }
+		else { $low_projectile_ability_teleop = false; }
+		if (isset($_GET['high_projectile_ability_teleop']) && ($_GET['high_projectile_ability_teleop'] == true)) { $high_projectile_ability_teleop = true; }
+		else { $high_projectile_ability_teleop = false; }
+		if (isset($_GET['beacon_ability_teleop']) && ($_GET['beacon_ability_teleop'] == true)) { $beacon_ability_teleop = true ; }
+		else { $beacon_ability_teleop = false; }
+		if (isset($_GET['cap_ability_auto']) && ($_GET['cap_ability_auto'] == true)) { $cap_ability_auto = true; }
+		else { $cap_ability_auto = false; }
+		if (isset($_GET['low_projectile_ability_auto']) && ($_GET['low_projectile_ability_auto'] == true)) { $low_projectile_ability_auto = true ; }
+		else { $low_projectile_ability_auto = false; }
+		if (isset($_GET['high_projectile_ability_auto']) && ($_GET['high_projectile_ability_auto'] == true)) { $high_projectile_ability_auto = true ; }
+		else { $high_projectile_ability_auto = false; }
+		if (isset($_GET['beacon_ability_auto']) && ($_GET['beacon_ability_auto'] == true)) { $beacon_ability_auto = true ; }
+		else { $beacon_ability_auto = false; }
 ?>
 <!doctype html>
 <html>
@@ -168,6 +176,7 @@
 		return $data;
 	}
 
+	//FUNCTION IS DEPRECATED
 	function IsChecked($chkname,$value) {
 		if(!empty($_POST[$chkname])) {
 			foreach($_POST[$chkname] as $chkval) {

@@ -333,7 +333,7 @@ footer{
 
 .scouting-button{
     font-size: 30px;
-	width: 200px;
+	width: 100%;
     margin: 5px;
 }
 
@@ -345,8 +345,8 @@ footer{
 
 .scouting-buttons {
 	background-color: #e5e5e5;
-	padding: 0px 20px;
-	border-radius: 5px;
+	/*padding: 0px 20px;
+	border-radius: 5px;*/
 }
 
 .teamform {
@@ -507,12 +507,15 @@ table, .teamtable {
 }
 
 .text-white {
-	color:#000000;
-	font-size: 30px;
+	color:#ffffff;
 }
 
 .add-btn {
-	width: 93% !important;
+	width: 100% !important;
+}
+
+.edit-input {
+	width: 100%;
 }
 
 /* Other stuff */
