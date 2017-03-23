@@ -199,6 +199,9 @@
 		<hr>
 		<h3 class="teamheading">Notes</h3>
 		<h4><?php echo $cursor['notes'];?></h4>
+		<hr>
+		<h3 class="teamheading">Notes</h3>
+		<?php include("comment-format.php"); ?>
 	</div>
 	<footer class="footer footer-muted">
 		<span class="text-muted">FTC Team 327 &COPY;2017 | SCGSSM</span>
