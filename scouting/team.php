@@ -200,7 +200,12 @@
 		<h3 class="teamheading">Notes</h3>
 		<h4><?php echo $cursor['notes'];?></h4>
 		<hr>
-		<h3 class="teamheading">Notes</h3>
+		<h3 class="teamheading">Comments</h3>
+		<form action="commentsubmit.php" name="comment-submit" method="post" class="comment-form">
+			<textarea name="comment" class="comment-textarea"></textarea>
+			<br>
+			<input type="submit" class="btn btn-default comment-btn" value="Submit"/>
+		</form>
 		<?php include("comment-format.php"); ?>
 	</div>
 	<footer class="footer footer-muted">

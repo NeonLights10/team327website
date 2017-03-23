@@ -193,7 +193,7 @@
 	</h2>
 	<hr>
 	<div class="container-fluid">	
-	<form action="teamsubmit.php" name="team_edit" method="post" class="teamedit">
+	<form action="teamsubmit.php" name="team-edit" method="post" class="teamedit">
 		<input style="visibility:hidden;" type="text" name="team_number" value=<?php echo '"' . $cursor['team_number'] . '"';?>/>
 		<input style="visibility:hidden;" type="text" name="team_name" value=<?php echo '"' . $cursor['team_name'] . '"';?>/>
 		<fieldset>
