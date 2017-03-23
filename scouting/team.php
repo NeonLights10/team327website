@@ -207,7 +207,7 @@
 			<br>
 			<input type="submit" class="btn btn-default comment-btn" value="Submit"/>
 		</form>
-		<?php include("comment-format.php"); ?>
+		<?php include("../temp/comment-format.php"); ?>
 	</div>
 	<footer class="footer footer-muted">
 		<span class="text-muted">FTC Team 327 &COPY;2017 | SCGSSM</span>

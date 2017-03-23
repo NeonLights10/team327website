@@ -17,6 +17,7 @@
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->comments;
 
 	//sanitize comment with regex and length check
+	//TODO: add profanity filter
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if (isset($_POST['comment'])) {
 			$comment = test_input($_POST['comment']);
