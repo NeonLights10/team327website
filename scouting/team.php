@@ -10,6 +10,7 @@
     $successful = false;
 	//Retrieve team we are looking up
 	$team = htmlspecialchars($_GET['team']);
+	$team = (int) $team;
 	//Retrieve which team's database we should pull info from
 	$team_db = $_SESSION['user_team'];
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team_db;
@@ -204,6 +205,7 @@
 		<!-- Add a error section here -->
 		<form action="commentsubmit.php" name="comment-submit" method="post" class="comment-form">
 			<textarea name="comment" class="comment-textarea" pattern="[\w\s\W]{1,400}"></textarea>
+			<input type="text" name="team_number" value=<?php echo '"'. $team . '"'; ?> style="display:none;"/>
 			<br>
 			<input type="submit" class="btn btn-default comment-btn" value="Submit"/>
 		</form>

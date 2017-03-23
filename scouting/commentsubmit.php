@@ -8,10 +8,9 @@
 	//Setup successful marker and get any page references
     $successful = false;
 	//$ref = htmlspecialchars($_GET['ref']);
-	$cursor;
 
 	//Retrieve team user belongs to
-	$team_reference = (int) $cursor['team_name'];
+	$team_reference = (int) $_POST['team_number'];
 	$team_submitter = $_SESSION['user_team'];
 	$user_submitter = $_SESSION['user_name'];
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->comments;
@@ -23,7 +22,8 @@
 			$comment = test_input($_POST['comment']);
 		}
 		if ($comment == "") {
-			$_SESSION['errors'] = "You cannot submit an empty comment."
+			$_SESSION['errors'] = "You cannot submit an empty comment.";
+			//header("Location: ../scouting/team.php");
 		}
 		else if (strlen($comment) < 400) {
 			$result = $collection->InsertOne(
@@ -33,13 +33,15 @@
 				 'content' => $comment,]
 			);
 
-		printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
-		header("Location: ../scouting/team.php");
+		printf("Inserted %d document(s)\n", $result->getInsertedCount());
+		$prepare_header = "Location: ../scouting/team.php?team=" . $team_reference;
+		echo $prepare_header;
+		header($prepare_header);
 		}
 	}
 	else {
 		$_SESSION['errors'] = "The page did not submit data in an accepted manner.";
-		header("Location: ../scouting/team.php");
+		//header("Location: ../scouting/team.php");
 	}
 
 	function test_input($data) {
