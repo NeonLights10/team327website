@@ -62,7 +62,7 @@ require_once("session.php");
 		?>
 	</div>
 	<div class="header_push"></div>
-	<div>		
+	<div class="center">		
 		<div class="col-xs-12 col-sm-6">
 			<h2 style="text-align:center;">Edit a team in your Notebook</h2>
 			<div class="container-fluid">
