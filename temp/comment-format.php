@@ -7,7 +7,6 @@
 
 	//Setup successful marker and get any page references
     $successful = false;
-	//$ref = htmlspecialchars($_GET['ref']);
 	$cursor;
 
 	//Retrieve team user belongs to

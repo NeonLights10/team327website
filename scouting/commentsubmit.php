@@ -17,4 +17,34 @@
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->comments;
 
 	//sanitize comment with regex and length check
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		if (isset($_POST['comment'])) {
+			$comment = test_input($_POST['comment']);
+		}
+		if ($comment == "") {
+			$_SESSION['errors'] = "You cannot submit an empty comment."
+		}
+		else if (strlen($comment) < 400) {
+			$result = $collection->InsertOne(
+				['team_reference' => $team_reference,
+				 'team_submitter' => $team_submitter,
+				 'user_submitter' => $user_submitter,
+				 'content' => $comment,]
+			);
+
+		printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
+		header("Location: ../scouting/team.php");
+		}
+	}
+	else {
+		$_SESSION['errors'] = "The page did not submit data in an accepted manner.";
+		header("Location: ../scouting/team.php");
+	}
+
+	function test_input($data) {
+		$data = trim($data);
+  		$data = stripslashes($data);
+		$data = htmlspecialchars($data);
+		return $data;
+	}
 ?>

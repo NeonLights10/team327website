@@ -201,8 +201,9 @@
 		<h4><?php echo $cursor['notes'];?></h4>
 		<hr>
 		<h3 class="teamheading">Comments</h3>
+		<!-- Add a error section here -->
 		<form action="commentsubmit.php" name="comment-submit" method="post" class="comment-form">
-			<textarea name="comment" class="comment-textarea"></textarea>
+			<textarea name="comment" class="comment-textarea" pattern="[\w\s\W]{1,400}"></textarea>
 			<br>
 			<input type="submit" class="btn btn-default comment-btn" value="Submit"/>
 		</form>
