@@ -10,6 +10,7 @@
     $successful = false;
 	//Retrieve team we are looking up
 	$team = htmlspecialchars($_GET['team']);
+	$team = (int) $team;
 	//Retrieve which team's database we should pull info from
 	$team_db = $_SESSION['user_team'];
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team_db;
@@ -19,6 +20,7 @@
 					'projection' => [
 						'team_number' => 1,
 						'team_name' => 1,
+						'team_division' => 1,
 						'team_school' => 1,
 						'team_city' => 1,
 						'team_state' => 1,
@@ -32,6 +34,7 @@
 						'high_projectile_ability_auto' => 1,
 						'beacon_ability_auto' => 1,
 						'notes' => 1,
+						'editor' => 1,
 					],
 				]
 			);
@@ -82,6 +85,12 @@
 			if(!isset($cursor['notes'])) {
 				$cursor['notes'] = "";
 			}
+			if(!isset($cursor['editor'])) {
+				$cursor['editor'] = "";
+			}
+			//if(!isset($cursor['team_division'])) {
+			//	$cursor['team_division'] = "";
+			//}
 ?>
 <!doctype html>
 <html>
@@ -134,6 +143,10 @@
 	<hr>
 	<div class="container-fluid">	
 		<table class="teamtable">
+			<tr>
+				<th class="teamlabel">Division</th>
+				<td><?php echo $cursor['team_division']?></td>
+			</tr>
 			<tr>
 				<th class="teamlabel">School</th>
 				<td><?php echo $cursor['team_school']?></td>
@@ -198,11 +211,38 @@
 		</div>	
 		<hr>
 		<h3 class="teamheading">Notes</h3>
+		<p style="font-size:10px;">Last edited by: <?php echo $cursor['editor'];?></p>
 		<h4><?php echo $cursor['notes'];?></h4>
+		<hr>
+		<h3 class="teamheading">Comments</h3>
+		<!-- Add a error section here -->
+		<div class="text-white center">	
+			<?php
+				if(isset($_SESSION['errors']))
+				{
+					echo '<mark><h4>' . $_SESSION['errors'] . "</h4></mark><br>";
+					//Make sure the error only displays once (no persistance)
+					unset($_SESSION['errors']);
+				}
+				if(isset($_SESSION['messages']))
+				{
+					echo '<mark>' . $_SESSION['messages'] . "</mark><br>";
+
+					unset($_SESSION['messages']);
+				}
+			?>
+		</div>
+		<form action="commentsubmit.php" name="comment-submit" method="post" class="comment-form">
+			<textarea name="comment" class="comment-textarea" pattern="[\w\s\W]{1,400}"></textarea>
+			<input type="text" name="team_number" value=<?php echo '"'. $team . '"'; ?> style="display:none;"/>
+			<br>
+			<input type="submit" class="btn btn-default comment-btn" value="Submit"/>
+		</form>
+		<?php include("../temp/comment-format.php"); ?>
 	</div>
 	<footer class="footer footer-muted">
 		<span class="text-muted">FTC Team 327 &COPY;2017 | SCGSSM</span>
-    	<span class="text-muted right">Isaiah Ho</span>
+    	<span class="text-muted right"><a href="mailto:iho17@gssm.k12.sc.us">Contact us if you have issues</a></span>
     </footer>
 	<script type="application/javascript" src="../scripts/responsivenav.js"></script>
 </body>	

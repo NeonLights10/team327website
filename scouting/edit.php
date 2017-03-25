@@ -90,7 +90,7 @@ require_once("session.php");
 	</div>
 	<footer class="footer" style="background-color:rgba(0,0,0,0) !important;">
 		<span class="text-muted">FTC Team 327 &COPY;2017 | SCGSSM</span>
-		<span class="text-muted right">Isaiah Ho</span>
+		<span class="text-muted right"><a href="mailto:iho17@gssm.k12.sc.us">Contact us if you have issues</a></span>
 	</footer>
 
 	<script type="application/javascript" src="../scripts/responsivenav.js"></script>

@@ -101,6 +101,18 @@
 						<input type="text" length="128" name="team_captain" pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+[\'-]?){1,3}$" class="teamsearch-input"/>
 					</td>
 				</tr>
+				<tr>
+					<td class="teamsearch-padding">
+						Team Division
+						<br>
+						<?php
+							$division = array(''=>' ', 'Pemberton'=>'Pemberton', 'Kilrain'=>'Kilrain');
+							$division_menu = generateSelect("team_division", $division, '');
+							echo $division_menu;
+						?>
+						<!--<input type="text" length="128" name="team_division" class="teamsearch-input"/>-->
+					</td>
+				</tr>
 			</table>
 		</fieldset>
 		<fieldset>

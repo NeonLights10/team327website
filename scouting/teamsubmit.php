@@ -33,6 +33,7 @@
 		$high_projectile_ability_auto = IsChecked('abilities','high_projectile_ability_auto');
 		$beacon_ability_auto = IsChecked('abilities','beacon_ability_auto');
 		$notes = (string) $_POST['notes'];
+		$editor = (string) $_SESSION['user_name'] . " from Team " . (string) $_SESSION['user_team'];
 		echo $notes;
 		
 		if (empty($number)) {
@@ -69,7 +70,8 @@
 				 'low_projectile_ability_auto' => $low_projectile_ability_auto,
 				 'high_projectile_ability_auto' => $high_projectile_ability_auto,
 				 'beacon_ability_auto' => $beacon_ability_auto,
-				 'notes' => $notes]],
+				 'notes' => $notes,
+				 'editor' => $editor]],
 				['upsert' => true]
 			);
 			printf("Matched %d document(s)\n", $result->getMatchedCount());
