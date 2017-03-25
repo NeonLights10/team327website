@@ -23,6 +23,7 @@
 		if (isset($_GET['team_city'])) { $city = test_input((string) $_GET['team_city']); }
 		if (isset($_GET['team_state'])) { $state = test_input((string) $_GET['team_state']); }
 		if (isset($_GET['team_captain'])) { $captain = test_input((string) $_GET['team_captain']); }
+		if (isset($_GET['team_division'])) { $team_division = test_input((string) $_GET['team_division']); }
 		if (isset($_GET['cap_ability_teleop']) && ($_GET['cap_ability_teleop'] == true)) { $cap_ability_teleop = true; }
 		else { $cap_ability_teleop = false; }
 		if (isset($_GET['low_projectile_ability_teleop']) && ($_GET['low_projectile_ability_teleop'] == true)) { $low_projectile_ability_teleop = true; }
@@ -81,7 +82,7 @@
 	<h2 style="padding-left:20px;">Search Results</h2>
 	<hr>
 <?php
-	if (empty($number) && empty($name) && empty($school) && empty($city) && empty($state) && empty($captain) && ($cap_ability_teleop == false) && ($low_projectile_ability_teleop == false) && ($high_projectile_ability_teleop == false) && ($beacon_ability_teleop == false) && ($cap_ability_auto == false) && ($low_projectile_ability_auto == false) && ($low_projectile_ability_auto == false) && ($high_projectile_ability_auto == false) && ($beacon_ability_auto == false)) {
+	if (empty($number) && empty($name) && empty($school) && empty($city) && empty($state) && empty($captain) && empty($team_division) && ($cap_ability_teleop == false) && ($low_projectile_ability_teleop == false) && ($high_projectile_ability_teleop == false) && ($beacon_ability_teleop == false) && ($cap_ability_auto == false) && ($low_projectile_ability_auto == false) && ($low_projectile_ability_auto == false) && ($high_projectile_ability_auto == false) && ($beacon_ability_auto == false)) {
 		//echo "All empty";
 		$cursor = $collection->find(
 			[],
@@ -89,14 +90,16 @@
 				'projection' => [
 					'team_number' => 1,
 					'team_name' => 1,
+					'team_division' => 1,
 				],
 			]
 		);
 		//var_dump($cursor);
 		foreach($cursor as $document) {
 			//echo("<tr><td>" .$document['team_number'] . "</td><td>" . $document['team_name'] . "</td></tr>");
-			$num = (int) $document['team_number'];
+			$num =  $document['team_number'];
 			$name = $document['team_name'];
+			$team_division = $document['team_division'];
 			include("../temp/team_format.php");
 		};
 
@@ -120,7 +123,10 @@
 			$filter['team_state'] = new MongoDB\BSON\Regex($state, 'i');
 		}
 		if(!empty($captain)) {
-			$filter['captain'] = new MongoDB\BSON\Regex($captain. 'i');
+			$filter['captain'] = new MongoDB\BSON\Regex($captain, 'i');
+		}
+		if(!empty($team_division)) {
+			$filter['team_division'] = new MongoDB\BSON\Regex($team_division, 'i');
 		}
 		if($cap_ability_teleop) {
 			$filter['cap_ability_teleop'] = true;
@@ -152,6 +158,7 @@
 				'projection' => [
 					'team_number' => 1,
 					'team_name' => 1,
+					'team_division'  => 1,
 				],
 			]
 		);
@@ -163,6 +170,7 @@
 				//echo("<tr><td>" .$document['team_number'] . "</td><td>" . $document['team_name'] . "</td></tr>");
 				$num = (int) $document['team_number'];
 				$name = $document['team_name'];
+				$team_division = $document['team_division'];
 				include("../temp/team_format.php");
 			};
 		}

@@ -1,5 +1,5 @@
 <?php
-	require '../../vendor/autoload.php';
+	require '/var/www/vendor/autoload.php';
 	(require_once("dbcreds.php")) or die("Unable to access database ERR:1");
 /**
  * Class registration
@@ -138,6 +138,7 @@ class Registration
 									$current = $copy_collection->findOne(['uuid' => ($i + 1)]);
 									$uuid = $current['uuid'];
 									$team_name = $current['team_name'];
+									$team_division = $current['team_division'];
 									$team_number = $current['team_number'];
 									$team_school = $current['team_school'];
 									$team_city = $current['team_city'];
@@ -146,6 +147,7 @@ class Registration
 										'uuid' => $uuid,
 										'team_number' => $team_number,
 										'team_name' => $team_name,
+										'team_division' => $team_division,
 										'team_school' => $team_school,
 										'team_city' => $team_city,
 										'team_state' => $team_state,

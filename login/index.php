@@ -72,7 +72,7 @@ require_once("session.php");
 						<form action="login.php" method="post">
 							<div class="field-wrap">
 								<label>
-									Email Address or Username<span class="req">*</span>
+									Username<span class="req">*</span>
 								</label>
 								<input type="text" name="user_name" required autocomplete="on"/>
 							</div>

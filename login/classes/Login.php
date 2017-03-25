@@ -70,7 +70,7 @@ class Login
 				//Prepared statement to prevent other types of injection
                 $sql = "SELECT user_name, user_email, user_password_hash, user_team, user_first_name, user_last_name 
                         FROM users
-                        WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_email . "';";
+                        WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
                 $result_of_login_check = $this->db_connection->query($sql);
 
                 // if this user exists

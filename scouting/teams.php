@@ -54,6 +54,7 @@ require_once("session.php");
 				'projection' => [
 					'team_number' => 1,
 					'team_name' => 1,
+					'team_division' => 1,
 				],
 				'limit' => 100,
 			]
@@ -63,12 +64,13 @@ require_once("session.php");
 			//echo("<tr><td>" .$document['team_number'] . "</td><td>" . $document['team_name'] . "</td></tr>");
 			$num = (int) $document['team_number'];
 			$name = $document['team_name'];
+			$team_division = $document['team_division'];
 			include("../temp/team_format.php");
 		};
 	?>
 	<footer class="footer footer-muted">
 		<span class="text-muted">FTC Team 327 &COPY;2017 | SCGSSM</span>
-    	<span class="text-muted right">Isaiah Ho</span>
+    	<span class="text-muted right"><a href="mailto:iho17@gssm.k12.sc.us">Contact us if you have issues</a></span>
     </footer>
 	<script type="application/javascript" src="../scripts/responsivenav.js"></script>
 </body>
