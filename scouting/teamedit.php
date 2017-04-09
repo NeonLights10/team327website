@@ -37,7 +37,7 @@
 			$name = (string) $_POST['team_name'];
 		}
 		if ($number<100000 && strlen($name) <= 128
-            && preg_match('/^([a-z\d-*,]+\s*)*$/i', $name)) {
+            && preg_match('/^([&|-|a-z\d-*,]+\s*)*$/i', $name)) {
 			//echo "Looking up document...";
 			$name = test_input($name);
   			$number = test_input($number);

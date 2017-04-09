@@ -44,7 +44,7 @@
 			$_SESSION['errors'] = "Team Name is empty";
 			//redirect($ref);
 		} 
-		else if (!empty($_POST['team_number']) && $number<100000 && strlen($name) <= 128 && strlen($school) <= 128 && strlen($city) <= 128 && strlen($captain) <= 128 && strlen($notes) <= 5000 && preg_match('/^([a-z\d-*,]+\s*)*$/i', $name)) {
+		else if (!empty($_POST['team_number']) && $number<100000 && strlen($name) <= 128 && strlen($school) <= 128 && strlen($city) <= 128 && strlen($captain) <= 128 && strlen($notes) <= 5000) {
 			//echo "Looking up document...";
 			$name = test_input($name);
   			$number = test_input($number);

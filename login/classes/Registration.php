@@ -1,5 +1,5 @@
 <?php
-	require '/var/www/vendor/autoload.php';
+	require '../../vendor/autoload.php';
 	(require_once("dbcreds.php")) or die("Unable to access database ERR:1");
 /**
  * Class registration

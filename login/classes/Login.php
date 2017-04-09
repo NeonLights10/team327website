@@ -1,5 +1,6 @@
 <?php
-
+    require '../../vendor/autoload.php';
+    (require_once("dbcreds.php")) or die("Unable to access database ERR:1");
 /** 
  * Class login
  * handles the user's login and logout process
@@ -92,6 +93,19 @@ class Login
                         $_SESSION['user_login_status'] = 1;
                         $_SESSION['user_id'] = $result_row->user_id;
                         //$_SESSION['user_type'] = $result_row->user_type;
+                        $team = $_SESSION['user_team'];
+
+                        $update_collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team;
+						//Check for documents in collection, if there are none then create collection
+						//Create connection to the team collection to prepare for copying database
+						$copy_collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->teams;
+						//Get number of teams
+						$cursor = $copy_collection->count();
+						echo $cursor;
+						$cursor2 = $update_collection->count();
+						if($cursor > $cursor2 || $cursor2 > $cursor) {
+							$this->updateCollection($cursor, $cursor2, $copy_collection, $update_collection);
+						}
                         $this->successful=true;
                     } else {
                         $this->errors[] = "Incorrect username or password";
@@ -103,6 +117,52 @@ class Login
                 $this->errors[] = "Unable to access database ERR:2";
             }
         }
+    }
+
+    public function updateCollection(int $cursor, int $cursor2, MongoDB\Collection $copy_collection, MongoDB\Collection $update_collection)
+    {
+        /* Get each document from the teams collection using UUID index
+         * Retrive document values and prepare them for insertion
+         * Insert new document into the new team collection */
+        for($i = 0; $i < $cursor; $i++) {
+            $current = $copy_collection->findOne(['uuid' => ($i + 1)]);
+            $uuid = $current['uuid'];
+            $team_name = $current['team_name'];
+            $team_division = $current['team_division'];
+            $team_number = $current['team_number'];
+            $team_school = $current['team_school'];
+            $team_city = $current['team_city'];
+            $team_state = $current['team_state'];
+            $result = $update_collection->updateOne([
+                'team_number' => $team_number],
+                ['$set' => 
+                ['uuid' => $uuid,
+                'team_number' => $team_number,
+                'team_name' => $team_name,
+                'team_division' => $team_division,
+                'team_school' => $team_school,
+                'team_city' => $team_city,
+                'team_state' => $team_state]],
+				['upsert' => true]								   
+			);
+            // $users->insert($userinfo, array('safe' => true)); Use if you want synchronous addition
+        }
+	   	printf("Modified %d document(s)\n", $result->getModifiedCount());
+   	   	printf("Upserted %d document(s)\n", $result->getUpsertedCount());
+            echo "<br>";
+
+		$deleted = false;
+        for($i = 0; $i < $cursor2; $i++) {
+            $current = $copy_collection->findOne(['uuid' => ($i + 1)]);
+            if ($current == null) {
+				$deleted = true;
+                $delete_result = $update_collection->deleteOne(['uuid' => ($i + 1)]);
+            }
+        }
+		if ($deleted == true) {
+			printf("Deleted %d document(s)\n", $delete_result->getDeletedCount());
+				echo "<br>";
+		}
     }
 
     /**
