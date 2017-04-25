@@ -80,6 +80,7 @@ There is a PHP Library API that is built on top of the primitive driver. You wil
   * https://www.w3schools.com/php/
 
 ## Understanding ScoutCloud
+Within this GitHub there are multiple files with the suffix \_tutorial which will give you short tutorials on certain processes.
 
 ### Information Storage Structure
 Each team that signs up for the service recieves their own collection in the mongo DB. 
@@ -95,3 +96,14 @@ Next to that, there is the "comments" collection, which stores all comments for 
 Finally, each team has their own collection, named with their team number.
 
 ### Page Function Breakdown
+
+## Using GitHub
+When using GitHub, there are a few things that should be followed.
+
+When developing new features, push them to the GitHub, but use a different branch other than master. This is to ensure that if something goes wrong you can revert to a version you know that works. I will push an example branch for you so you can see how to do it.
+
+When making commits, follow this naming convention:
+
+```v#.#.# - <insert descriptive title or the name of the milestone which you are completing>```
+
+For the version, the first number is the major version number. The second number is the minor version number (used for less important updates). The third number is basically a hotfix number. Increment this when you have super minor or small changes to the code.
