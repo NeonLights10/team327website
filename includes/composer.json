@@ -1,0 +1,23 @@
+{
+    "name": "mongodb",
+    "version": "1.2.8",
+    "type": "extension",
+    "license": [
+        "Apache License"
+    ],
+    "authors": [
+        {
+            "name": "Hannes Magnusson",
+            "email": "bjori@php.net"
+        },
+        {
+            "name": "Jeremy Mikola",
+            "email": "jmikola@php.net"
+        },
+        {
+            "name": "Derick Rethans",
+            "email": "derick@php.net"
+        }
+    ],
+    "description": "MongoDB driver for PHP"
+}
