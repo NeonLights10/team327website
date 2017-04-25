@@ -96,6 +96,9 @@ Next to that, there is the "comments" collection, which stores all comments for 
 Finally, each team has their own collection, named with their team number.
 
 ### Page Function Breakdown
+#### Backend
+  * <b>validate_login.php</b> as well as it's variants - checks if the user is signed in and prevents access to pages requiring login.
+  * <b>session.php</b> - destroys the session after a set amount of time
 #### Login
   * <b>index.php</b> - serves as the UI for the login system.
   * <b>login.php</b> - performs the login function, calling Login.php as a new object.
@@ -103,7 +106,8 @@ Finally, each team has their own collection, named with their team number.
   * <b>register.php</b> - performs the register function, calling Registration.php as a new object.
   * <b>Registration.php</b> - actually does the connection the mySQL server and creates a new account after data validation, and connects to the MongoDB server and checks if a new collection needs to be made.
 #### Scouting
-  * Coming soon
+  * Each page references validate_login.php and session.php.
+  * <b>index.php</b> - UI for the scouting service. Contains links to search, edit, and list all teams
   
 ## Using GitHub
 When using GitHub, there are a few things that should be followed.
