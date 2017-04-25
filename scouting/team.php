@@ -18,6 +18,7 @@
 				['team_number' => (int) $team],
 				[
 					'projection' => [
+						//CHANGE THESE VALUES WHEN UPDATING FIELDS
 						'team_number' => 1,
 						'team_name' => 1,
 						'team_division' => 1,
@@ -38,6 +39,7 @@
 					],
 				]
 			);
+			//CHANGE THESE VALUES WHEN UPDATING FIELDS
 			if($cursor == null) {
 				//echo "Document does not exist";
 				$_SESSION['errors'] = "Team does not exist!";
