@@ -59,13 +59,14 @@ To properly use the driver, we will need to install Composer.
 Go ahead and put the file "composer.json" inside your includes folder in PHP.
 
 ### Database Setup
-Set up your mySQL and MongoDB databases, and create the proper includes file for the credentials. This tutorial will assume that you have prior knowledge of how to do this. If not, reference the documentation listed below. Be sure to use authentication for both databases.
+Set up your mySQL and MongoDB databases, and create the proper includes file for the credentials and put it in ```c:\xampp\php\includes```. This tutorial will assume that you have prior knowledge of how to do this. If not, reference the documentation listed below. Be sure to use authentication for both databases. 
 
 #### Note
 MongoDB may not create the necessary folder when installing. If so, create the following path: ```C:\data\db```
 
 ### Final Steps
 Once everything is installed, go ahead and boot everything up and put the files inside the htdocs folder in XAMPP. ```C:\xampp\htdocs```
+Take the "includes" folder and put it in ```c:\xampp\php\includes```
 
 ## Documentation and Resources
 In case you don't understand something or need to freshen up on a coding language, I've compiled a list of resources that you can use.
@@ -108,6 +109,10 @@ Finally, each team has their own collection, named with their team number.
 #### Scouting
   * Each page references validate_login.php and session.php.
   * <b>index.php</b> - UI for the scouting service. Contains links to search, edit, and list all teams
+  * <b>edit.php</b> - A form that collects team number/team name to be edited. Submits to teamedit.php through POST.
+  * <b>teamedit.php</b> - Serves as the UI for editing a team. Grabs team information from POST using the specified search criteria from edit.php, then formats it and displays it on the page. Submits to teamsubmit.php through POST. It can also grab team information using GET, which is only used when accessing the editing interface from a team page.
+  * <b>teamsubmit.php</b> - Data validates all form information sent through POST from teamedit.php and inputs it into the team document in the collection. Performs an upsert.
+  * <b>
   
 ## Using GitHub
 When using GitHub, there are a few things that should be followed.
