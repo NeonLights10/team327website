@@ -96,7 +96,15 @@ Next to that, there is the "comments" collection, which stores all comments for 
 Finally, each team has their own collection, named with their team number.
 
 ### Page Function Breakdown
-
+#### Login
+  * <b>index.php</b> - serves as the UI for the login system.
+  * <b>login.php</b> - performs the login function, calling Login.php as a new object.
+  * <b>Login.php</b> - actually does the connection to the mySQL server and verifies account information, as well as connecting to MongoDB and updating the appropriate team collection. 
+  * <b>register.php</b> - performs the register function, calling Registration.php as a new object.
+  * <b>Registration.php</b> - actually does the connection the mySQL server and creates a new account after data validation, and connects to the MongoDB server and checks if a new collection needs to be made.
+#### Scouting
+  * Coming soon
+  
 ## Using GitHub
 When using GitHub, there are a few things that should be followed.
 
