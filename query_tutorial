@@ -1,0 +1,32 @@
+      /* 
+			 * Main query for team information. 
+			 * Sets up the cursor which queries the collection and retrieves information and stores it.
+			 */
+       //We call our $collection, which is an object. It serves as a connection to the mongo DB. We call the method findOne().
+			$cursor = $collection->findOne(
+        //This first set of information in the [] is the search criteria. In this instance we request it to search for a document with
+        //a team number that matches the currently stored number in $team.
+				['team_number' => (int) $team],
+				//This second set of information in the [] is the projection array. What this does is it specifies what information we want
+        //the database to return. Each field has a value of 1 assigned to it (true), which lets the DB know you want that field returned.
+        [
+					'projection' => [
+						//CHANGE THESE VALUES WHEN UPDATING FIELDS
+						'team_number' => 1,
+						'team_name' => 1,
+						'team_school' => 1,
+						'team_city' => 1,
+						'team_state' => 1,
+						'team_captain' => 1,
+						'cap_ability_teleop' => 1,
+						'low_projectile_ability_teleop' => 1,
+						'high_projectile_ability_teleop' => 1,
+						'beacon_ability_teleop' => 1,
+						'cap_ability_auto' => 1,
+						'low_projectile_ability_auto' => 1,
+						'high_projectile_ability_auto' => 1,
+						'beacon_ability_auto' => 1,
+						'notes' => 1,
+					],
+				]
+			);
