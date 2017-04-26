@@ -110,9 +110,21 @@ Finally, each team has their own collection, named with their team number.
   * Each page references validate_login.php and session.php.
   * <b>index.php</b> - UI for the scouting service. Contains links to search, edit, and list all teams
   * <b>edit.php</b> - A form that collects team number/team name to be edited. Submits to teamedit.php through POST.
-  * <b>teamedit.php</b> - Serves as the UI for editing a team. Grabs team information from POST using the specified search criteria from edit.php, then formats it and displays it on the page. Submits to teamsubmit.php through POST. It can also grab team information using GET, which is only used when accessing the editing interface from a team page.
+  * <b>teamedit.php</b> - Serves as the UI for editing a team. Grabs team information from the database using the specified search criteria sent through POST from edit.php, then formats it and displays it on the page. Submits to teamsubmit.php through POST. It can also grab team information using GET, which is only used when accessing the editing interface from a team page.
   * <b>teamsubmit.php</b> - Data validates all form information sent through POST from teamedit.php and inputs it into the team document in the collection. Performs an upsert.
-  * <b>
+  * <b>commentsubmit.php</b> - Data validates and runs comments sent through POST from team.php and checks them for profanity. The comment is then added to the collection with the team number of the page it was posted on and the person who submitted it.
+  * <b>team.php</b> - Retrieves information about the team from the database, then formats it and displays it on the page. Contains an quickedit button which sends the user to teamedit.php with a GET request. Comments can be submitted through POST on this page.
+  * <b>search.php</b> - Contains the search form used to lookup a team. Sends information with a GET request, so that the same request can be looked up/used later.
+  * <b>results.php</b> - Retrieves search criteria sent through GET from search.php, then generates a search criteria array and uses it to look up any teams matching the criteria in the database. 
+  * <b>teams.php</b> - Retrieves every team in the collection, formats it, and displays it.
+  
+### What would I need to change if I were updating the objectives or adding a new information field?
+  * edit.php
+  * teamedit.php
+  * teamsubmit.php
+  * team.php
+  * search.php
+  * results.php
   
 ## Using GitHub
 When using GitHub, there are a few things that should be followed.
