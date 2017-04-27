@@ -1,0 +1,16 @@
+//Use the method updateOne to do update one
+$result = $update_collection->updateOne([
+          //First [] contains search criteria
+          'team_number' => $team_number],
+          //Specify the fields being updated in $set
+          ['$set' => 
+          ['uuid' => $uuid,
+          'team_number' => $team_number,
+          'team_name' => $team_name,
+          'team_division' => $team_division,
+          'team_school' => $team_school,
+          'team_city' => $team_city,
+          'team_state' => $team_state]],
+          //Upsert: if document does not exist, insert it instead of updating
+				  ['upsert' => true]								   
+			);
