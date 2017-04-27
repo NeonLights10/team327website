@@ -1,0 +1,9 @@
+$cursor = <$collection_name>-><method>(
+    $searcharray,
+    $projectionarray OR $setarray 
+    $arguments
+);
+
+//$searcharray contains all search criteria ('field_name' => $variable), specify one after another or add them to an array
+//$projectionarray contains all fields you want to be returned, use <$projection or $set> => 'field_name' => $variable, specify one after another or add them to an array
+//$arguments contains arguments ie. 'upsert' => true
