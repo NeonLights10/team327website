@@ -14,37 +14,46 @@
 	else {
 		$ref = "";
 	}
+	//Initialize cursor for query
 	$cursor;
 
-	//Retrieve team user belongs to
+	//Retrieve team user belongs to and initialize database connection
 	$team_db = (string) $_SESSION['user_team'];
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team_db;
 
+	//Checks to see if the page has made a request to the server (either POST or GET in this instance)
 	if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET") {
-		//echo "Post received";
-		// collect value of input field
-		// TODO: fix jerry-rig GET option for edit button on team page
+		// TODO: fix jerry-rig GET option for edit button on team page (unsure how to do)
+		// If sent from clicking the "edit" button on a team page, grab the team number
 		if(isset($_GET['team'])) {
 			$number = (int) htmlspecialchars($_GET['team']);	
 			$name = "";
 		}
+		//Else get the team number from the form on edit.php which was sent through POST
 		else if(!isset($_GET['team'])){
 			$number = (int) $_POST['team_number'];
+			//If the number is empty, return an error and redirect accordingly
 			if (empty($number)) {
 				$_SESSION['errors'] = "Team Number is empty";
 				redirect($ref);	
 			} 
 			$name = (string) $_POST['team_name'];
 		}
+		//Checks various data constraints for data validation
 		if ($number<100000 && strlen($name) <= 128
             && preg_match('/^([&|-|a-z\d-*,]+\s*)*$/i', $name)) {
 			//echo "Looking up document...";
 			$name = test_input($name);
-  			$number = test_input($number);
+  			$team = test_input($number);
+			/* 
+			 * Main query for team information. 
+			 * Sets up the cursor which queries the collection and retrieves information and stores it.
+			 */
 			$cursor = $collection->findOne(
-				['team_number' => (int) $number],
+				['team_number' => (int) $team],
 				[
 					'projection' => [
+						//CHANGE THESE VALUES WHEN UPDATING FIELDS
 						'team_number' => 1,
 						'team_name' => 1,
 						'team_school' => 1,
@@ -63,6 +72,11 @@
 					],
 				]
 			);
+			/*
+			 * Main Data Validation
+			 * Checks for any null values and sets them to a blank value so that it can be displayed in an input box.
+			 */
+			//CHANGE THESE VALUES WHEN UPDATING FIELDS
 			if($cursor == null) {
 				//echo "Document does not exist";
 				$_SESSION['errors'] = "Team does not exist!";
@@ -111,8 +125,10 @@
 				$cursor['notes'] = "";
 			}
 		}
+	//Was query successful? Yes
 	$successful = true;
 	}
+	//Error returned when page does not send a POST or GET request.
 	else {
 		$_SESSION['errors'] = "Data was not sent to the server in the correct format. ERR:4";
 		redirect($ref);
@@ -172,7 +188,7 @@
 				<span class="logo"><a href="/" style="color:black;"><img src="/images/logo.png" alt="Delta Drive" style="height:70px"/></a></span>
 				<li class="navbutton"><a href="/scouting/index.php"><h4>Scouting</h4></a></li>
 				<li class="navbutton"><a href="/scouting/teams.php"><h4>Teams</h4></a></li>
-				<?php 
+				<?php
 					if(isset($_SESSION['user_name'])) {
 						echo '<li><a href="/login/login.php?logout"><h4>Sign Out, '. $_SESSION['first_name'] .'</h4></a></li>';
 					}
@@ -188,6 +204,7 @@
 	</div>	
 	<h2 style="padding-left:15px; font-weight:bold;">
 	<?php
+		//Displays Team Number and Team Name at the top header
 		echo $cursor['team_number'] . " | " . $cursor['team_name'];
 	?>
 	</h2>
@@ -200,19 +217,24 @@
 			Team School
 			<br>
 			<?php
+				//Displays team school
 				echo '<input type="text" length="128" name="team_school" value="' . $cursor['team_school'] . '" class="teamedit-input"/>';
 			?>
 			<br>
 			Team City
 			<br>
 			<?php
+				//Displays team city
 				echo "<input type='text' length='128' name='team_city' pattern='^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?){1,5}$' value='" . $cursor['team_city'] . "'class='teamedit-input'/>";
 			?>
 			<br>
 			Team State
 			<br>
 			<?php
+				//Sets up an array of states and associates them with their respective abbreviations so that it matches the format that is stored in the db
 				$states = array( 'Alabama'=>'AL', 'Alaska'=>'AK', 'Arizona'=>'AZ', 'Arkansas'=>'AR', 'California'=>'CA', 'Colorado'=>'CO', 'Connecticut'=>'CT', 'Delaware'=>'DE', 'Florida'=>'FL', 'Georgia'=>'GA', 'Hawaii'=>'HI', 'Idaho'=>'ID', 'Illinois'=>'IL', 'Indiana'=>'IN', 'Iowa'=>'IA', 'Kansas'=>'KS', 'Kentucky'=>'KY', 'Louisiana'=>'LA', 'Maine'=>'ME', 'Maryland'=>'MD', 'Massachusetts'=>'MA', 'Michigan'=>'MI', 'Minnesota'=>'MN', 'Mississippi'=>'MS', 'Missouri'=>'MO', 'Montana'=>'MT', 'Nebraska'=>'NE', 'Nevada'=>'NV', 'New Hampshire'=>'NH', 'New Jersey'=>'NJ', 'New Mexico'=>'NM', 'New York'=>'NY', 'North Carolina'=>'NC', 'North Dakota'=>'ND', 'Ohio'=>'OH', 'Oklahoma'=>'OK', 'Oregon'=>'OR', 'Pennsylvania'=>'PA', 'Rhode Island'=>'RI', 'South Carolina'=>'SC', 'South Dakota'=>'SD', 'Tennessee'=>'TN', 'Texas'=>'TX', 'Utah'=>'UT', 'Vermont'=>'VT', 'Virginia'=>'VA', 'Washington'=>'WA', 'West Virginia'=>'WV', 'Wisconsin'=>'WI', 'Wyoming'=>'WY' );
+				
+				//Generates the dropdown list with each state as an option
 				function generateSelect($name = '', $options = array(), $default = '', $cursor = array()) {
 					$state_menu = '<select name="'.$name.'" class="teamedit-input">';
 					foreach ($options as $option => $value) {
@@ -239,6 +261,7 @@
 			Team Captain
 			<br>
 			<?php
+				//Displays team captain
 				echo '<input type="text" length="128" name="team_captain" value="' . $cursor['team_captain'] . '" class="teamedit-input" pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+[\'-]?){1,3}$"/>';
 			?>
 			<br>
@@ -247,10 +270,13 @@
 			<hr>
 			<div class="row">
 				<div class="col-lg-3">
-				<!--TODO: Change this into a table-->
+				<!--TODO: Change this into a table instead of the stupid <span> tags and custom padding-->
+				<!--This section contains all of the checkboxes for the various objectives during teleop and autonomous.-->
+				<!--MAKE SURE TO CHANGE THESE VALUES IF YOU UPDATE ANY OF THE QUERY FIELDS-->
 				<h3 class="teamheading">TeleOp Capabilities</h3>
 				<span class="teamedit-text" style="padding-right: 196px;">Cap Ball</span>
 				<?php
+					//If the value stored is true, go ahead and make the box checked. Else leave it unchecked.
 					if ($cursor['cap_ability_teleop'] == true) {
 						echo '<input type="checkbox" class="teamedit-checkbox" name="abilities[]" value="cap_ability_teleop" checked/>';
 					}
@@ -338,6 +364,7 @@
 		<fieldset>
 			<h3 class="teamheading">Notes</h3>
 			<?php
+				//Displays notes
 				echo '<textarea name="notes" class="teamedit-textarea">' . $cursor['notes'] . '</textarea>';
 			?>
 		</fieldset>

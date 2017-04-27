@@ -17,7 +17,6 @@
 	$prepare_header = "Location: ../scouting/team.php?team=" . $team_reference;
 
 	//sanitize comment with regex and length check
-	//TODO: add profanity filter
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
 		if (isset($_POST['comment'])) 
@@ -25,6 +24,7 @@
 			$comment = test_input($_POST['comment']);
 			if ($filter) 
 			{
+				//Check comment against profanity filter, and deny it if it contains any profanity.
 				if(is_profane($comment,$filter))
 				{
 					echo("Profanity is not allowed.");

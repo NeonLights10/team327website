@@ -6,7 +6,7 @@
 	require '../../vendor/autoload.php';
 	(require_once("dbcreds.php")) or die("Unable to access database ERR:1");
 	
-	//Setup successful marker and get any page references
+	//Setup successful marker and initialize cursor
     $successful = false;
 	//$ref = htmlspecialchars($_GET['ref']);
 	$cursor;
@@ -15,9 +15,10 @@
 	$team_db = (string) $_SESSION['user_team'];
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team_db;
 
+	//Checks if page sent a POST request
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		//echo "Post received";
-		// collect value of input field
+		//Collect the values from the form
 		$number = (int) $_POST['team_number'];
 		$name = (string) $_POST['team_name'];
 		$school = (string) $_POST['team_school'];
@@ -44,8 +45,10 @@
 			$_SESSION['errors'] = "Team Name is empty";
 			//redirect($ref);
 		} 
+		//Do some data validation here, making sure string lengths don't exceed a certain amount (mainly to prevent the Bee Movie or something equivalent from being put in)
 		else if (!empty($_POST['team_number']) && $number<100000 && strlen($name) <= 128 && strlen($school) <= 128 && strlen($city) <= 128 && strlen($captain) <= 128 && strlen($notes) <= 5000) {
 			//echo "Looking up document...";
+			//Sanitize inputs
 			$name = test_input($name);
   			$number = test_input($number);
 			$school = test_input($school);
@@ -53,6 +56,8 @@
 			$state = test_input($state);
 			$captain = test_input($captain);
 			$notes = test_input($notes);
+
+			//Put in an update request to the server. Search parameter is the team number, $set is the fields being updated/entered. We do an upsert to insert a new document if necessary
 			$result = $collection->updateOne(
 				['team_number' => (int) $number],
 				['$set'  => 
@@ -102,6 +107,7 @@
 		return $data;
 	}
 
+	//Not deprecated here
 	function IsChecked($chkname,$value) {
 		if(!empty($_POST[$chkname])) {
 			foreach($_POST[$chkname] as $chkval) {

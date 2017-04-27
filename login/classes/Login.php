@@ -96,13 +96,13 @@ class Login
                         $team = $_SESSION['user_team'];
 
                         $update_collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team;
-						//Check for documents in collection, if there are none then create collection
 						//Create connection to the team collection to prepare for copying database
 						$copy_collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->teams;
 						//Get number of teams
 						$cursor = $copy_collection->count();
 						echo $cursor;
 						$cursor2 = $update_collection->count();
+						//TODO: separate this into two: we only need to run the delete when necessary, we need to update everytime.
 						if($cursor > $cursor2 || $cursor2 > $cursor) {
 							$this->updateCollection($cursor, $cursor2, $copy_collection, $update_collection);
 						}

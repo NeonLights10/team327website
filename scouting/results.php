@@ -6,7 +6,7 @@
 	require '../../vendor/autoload.php';
 	(require_once("dbcreds.php")) or die("Unable to access database ERR:1");
 	
-	//Setup successful marker and get any page references
+	//Setup successful marker and initialize cursor
     $successful = false;
 	$cursor;
 
@@ -14,9 +14,9 @@
 	$team_db = (string) $_SESSION['user_team'];
 	$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->$team_db;
 
+	//Checks if page sent a GET request
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
-		//echo "Post received";
-		// collect value of input field
+		// Collect the values of the input fields on search.php
 		if (isset($_GET['team_number'])) { $number = test_input($_GET['team_number']); }
 		if (isset($_GET['team_name'])) { $name = test_input((string) $_GET['team_name']); }
 		if (isset($_GET['team_school'])) { $school = test_input((string) $_GET['team_school']); }
@@ -24,6 +24,8 @@
 		if (isset($_GET['team_state'])) { $state = test_input((string) $_GET['team_state']); }
 		if (isset($_GET['team_captain'])) { $captain = test_input((string) $_GET['team_captain']); }
 		if (isset($_GET['team_division'])) { $team_division = test_input((string) $_GET['team_division']); }
+
+		//Objectives
 		if (isset($_GET['cap_ability_teleop']) && ($_GET['cap_ability_teleop'] == true)) { $cap_ability_teleop = true; }
 		else { $cap_ability_teleop = false; }
 		if (isset($_GET['low_projectile_ability_teleop']) && ($_GET['low_projectile_ability_teleop'] == true)) { $low_projectile_ability_teleop = true; }
@@ -82,8 +84,11 @@
 	<h2 style="padding-left:20px;">Search Results</h2>
 	<hr>
 <?php
+	//Checks to see if search criteria was left blank. If so, then just run a query without search parameters.
 	if (empty($number) && empty($name) && empty($school) && empty($city) && empty($state) && empty($captain) && empty($team_division) && ($cap_ability_teleop == false) && ($low_projectile_ability_teleop == false) && ($high_projectile_ability_teleop == false) && ($beacon_ability_teleop == false) && ($cap_ability_auto == false) && ($low_projectile_ability_auto == false) && ($low_projectile_ability_auto == false) && ($high_projectile_ability_auto == false) && ($beacon_ability_auto == false)) {
 		//echo "All empty";
+		
+		//Search query
 		$cursor = $collection->find(
 			[],
 			[
@@ -104,6 +109,7 @@
 		};
 
 	} 
+	//If there is a search criteria filled out, go ahead and add that to our search criteria array, $filter
 	else {
 		//echo "Not all empty";
 		$filter = array();
@@ -152,6 +158,8 @@
 		if($beacon_ability_auto) {
 			$filter['beacon_ability_auto'] = true;
 		}
+
+		//Search query		
 		$cursor = $collection->find(
 			$filter,
 			[

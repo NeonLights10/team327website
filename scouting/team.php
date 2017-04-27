@@ -18,6 +18,7 @@
 				['team_number' => (int) $team],
 				[
 					'projection' => [
+						//CHANGE THESE VALUES WHEN UPDATING FIELDS
 						'team_number' => 1,
 						'team_name' => 1,
 						'team_division' => 1,
@@ -38,6 +39,7 @@
 					],
 				]
 			);
+			//CHANGE THESE VALUES WHEN UPDATING FIELDS
 			if($cursor == null) {
 				//echo "Document does not exist";
 				$_SESSION['errors'] = "Team does not exist!";
@@ -192,19 +194,19 @@
 				<table class="teamtable">
 					<tr>
 						<td class="teamlabel">Knock Cap Ball</td>
-						<td><?php if($cursor['cap_ability_auto']) { echo '✔️';} else { echo '❌';} ?></td>
+						<td><?php if($cursor['cap_ability_auto']) { echo '✔';} else { echo '❌';} ?></td>
 					</tr>
 					<tr>
 						<td class="teamlabel">Low Goal Projectile Scoring</td>
-						<td><?php if($cursor['low_projectile_ability_auto']) { echo '✔️';} else { echo '❌';} ?></td>
+						<td><?php if($cursor['low_projectile_ability_auto']) { echo '✔';} else { echo '❌';} ?></td>
 					</tr>
 					<tr>
 						<td class="teamlabel">High Goal Projectile Scoring</td>
-						<td><?php if($cursor['high_projectile_ability_auto']) { echo '✔️';} else { echo '❌';} ?></td>
+						<td><?php if($cursor['high_projectile_ability_auto']) { echo '✔';} else { echo '❌';} ?></td>
 					</tr>
 					<tr>
 						<td class="teamlabel">Beacon Scoring</td>
-						<td><?php if($cursor['beacon_ability_auto']) { echo '✔️';} else { echo '❌';} ?></td>
+						<td><?php if($cursor['beacon_ability_auto']) { echo '✔';} else { echo '❌';} ?></td>
 					</tr>
 				</table>
 			</div>

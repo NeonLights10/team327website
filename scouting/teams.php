@@ -48,6 +48,8 @@ require_once("session.php");
 		require '../../vendor/autoload.php';
 		(require_once("dbcreds.php")) or die("Unable to access database ERR:1");
 		$collection = (new MongoDB\Client("mongodb://" . MDB_USER . ":" . MDB_PASS . "@" . DB_HOST . ":27017"))->teams->teams;
+
+		//Search query with no search parameters
 		$cursor = $collection->find(
 			[],
 			[
@@ -56,6 +58,7 @@ require_once("session.php");
 					'team_name' => 1,
 					'team_division' => 1,
 				],
+				//Limits results at 100, can be changed
 				'limit' => 100,
 			]
 		);
